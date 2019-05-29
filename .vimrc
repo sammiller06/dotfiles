@@ -11,7 +11,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'                   " required
 Plugin 'tpope/vim-fugitive'                  " git commands
-Plugin 'davidhalter/jedi-vim'                " jedi vim
 Plugin 'tpope/vim-surround'                  " quick replace
 Plugin 'lervag/vimtex'                       " LaTeX ligth-IDE
 Plugin 'vim-syntastic/syntastic'             " syntax linter use ALE
@@ -27,7 +26,7 @@ Plugin 'tmhedberg/SimpylFold'                " A better folder
 Plugin 'sjl/gundo.vim'                       " Graphical undo
 Plugin 'w0rp/ale'                            " On the fly linter
 Plugin 'chriskempson/base16-vim'             " Base-16 colors
-
+Plugin 'scrooloose/nerdcommenter'            " Comment out lines
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -52,10 +51,10 @@ vmap … ddkP xkP`[V`]
 vmap – xp`[V`]
 
 " New line below
-nnoremap <Enter> o<Esc>x
+" nnoremap <Enter> o<Esc>x
 
 " New line above - is this working?
-nmap <S-Enter> O<Esc>x
+" nmap <S-Enter> O<Esc>x
 
 " use ,<space> to remove search highlights
 nnoremap <leader><space> :nohlsearch<CR>
@@ -64,10 +63,10 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <space> za
 
 " Move per visual line (ignore line breaks)
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
 
-" End of line and beginning of line
+" End of line and begininng of line
 nnoremap E $
 nnoremap B 0
 
@@ -85,12 +84,12 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 " highlight last inserted text
-nnoremap gv `[v`]
+" nnoremap gv `[v`]
 
 " Save with ,w
-" nnoremap <leader>w <esc>:w<CR> 
-" inoremap <leader>w <esc>:w<CR> 
-" vnoremap <leader>w <esc>:w<CR> 
+nnoremap <leader>w <esc>:w<CR> 
+inoremap <leader>w <esc>:w<CR> 
+vnoremap <leader>w <esc>:w<CR> 
 
 " Replace word with with ,r
 " nnoremap <leader>r kpldwb
@@ -102,7 +101,7 @@ nnoremap <leader>J k$Jxi<enter><esc>
 inoremap jj <esc>
 
 " toggle gundo with ,u
-" nnoremap ,u :GundoToggle<CR>
+nnoremap ,u :GundoToggle<CR>
 
 " NERDTree Toggle
 nmap <leader>nt :NERDTreeToggle <CR>
@@ -120,9 +119,12 @@ nnoremap ,l :VimtexCompile<CR>
 " Settings {{{
 
 " YouCompleteMe
-" let g:ycm_python_binary_path = '/Users/flnr/anaconda/bin/python'
-" let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"let g:ycm_python_binary_path = '/Users/flnr/anaconda/bin/python'
+"let g:ycm_autoclose_preview_window_after_completion=1
+"map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
 
 " ALE
 let g:ale_sign_error = '>>'
@@ -158,9 +160,9 @@ set foldmethod=indent                  " Fold based on indent level
 set encoding=utf-8                     " Default to utf-8
 
 " Screen behavior
-set lazyredraw                         " Lazy redraw of screen
-set showmatch                          " Autoblink on parenthesis
-set wildmenu                           " Graphical autocomplete
+" set lazyredraw                         " Lazy redraw of screen
+" set showmatch                          " Autoblink on parenthesis
+" set wildmenu                           " Graphical autocomplete
 set nu                                 " Line numbering
 
 " Search behavior
@@ -170,7 +172,7 @@ set hlsearch                           " Highlight matches
 " Color behavior
 syntax enable                 " syntax highlighting
 " let base16colorspace=256
-" colorscheme solarized-dark 
+colorscheme base16-ocean
 let g:airline_theme='base16'        " Status bar theme
 let g:airline_solarized_bg='dark'      " solarized statusbar
 let python_highlight_all=1             " Python highlighting
@@ -181,11 +183,11 @@ hi MatchParen cterm=bold gui=bold ctermbg=none guibg=NONE ctermfg=magenta guifg=
 
 " GUI settings
 " defaults write org.vim.MacVim AppleFontSmoothing -int 0
-if has('gui_running')
-  set timeout timeoutlen=1000 ttimeoutlen=100     " Slow down key timeout
-  set vb t_vb=                                    " Turn off mvim alarm bell
-  imap jj <esc>  
-endif
+" if has('gui_running')
+  " set timeout timeoutlen=1000 ttimeoutlen=100     " Slow down key timeout
+  " set vb t_vb=                                    " Turn off mvim alarm bell
+  " imap jj <esc>  
+" endif
 
 " LaTex
 let g:vimtex_view_method='skim'        " Use Skim as previewer
@@ -216,7 +218,7 @@ au BufNewFile,BufRead *.py
     \ set tabstop=4       |                  " <TAB> = 4 <SPACE>
     \ set softtabstop=4   |                  " <TAB> spacing in editing 
     \ set shiftwidth=4    |
-    \ set textwidth=79    |
+    \ set textwidth=99    |
     \ set fileformat=unix |
     \ set autoindent      |
 
@@ -232,5 +234,3 @@ au BufNewFile,BufRead *.tex
     \ imap ,c ~\cite{|
 
 " }}}
-
-
